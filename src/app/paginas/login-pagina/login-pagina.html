@@ -1,31 +1,39 @@
-<div class="container-login">
-    <h1>Iniciar sesión</h1>
-  <form #loginForm="ngForm" (ngSubmit)="login(loginForm)">
+<div class="loginContainer">
+    <h1 class="loginTitle">Iniciar sesión</h1>
+  <form #loginForm="ngForm" (ngSubmit)="login(loginForm)" class="formContent">
     
-   <div class="username">
-    <label for="Restaurant-name">Nombre del restaurante</label>
-     <input id= "restaurantName" name= "restaurantName" type="restaurantName" ngModel #restaurantName="ngModel" required="true" autocomplete="restaurantName" ><br>
-     @if (restaurantName.invalid && !restaurantName.pristine) {
-       <p class="error">Debe colocar un resaturante válido.</p>
-     }   
-   </div>
-     <div class="username">
-    <label for="password">Contraseña</label>
-     <input id="password" name="password" type="password" ngModel #password="ngModel" minlength="4" autocomplete="current-password">
-     @if (password.invalid && !password.pristine) {
-       <p class="error">Debe colocar una contraseña de al menos 4 caracteres.</p>
-     } 
-     </div>
-     
-     <button [disabled]="isLoading || loginForm.invalid">Iniciar sesión</button>
-     @if(isLoading){
-     <app-spinner></app-spinner>
-     }
+    <div class="inputGroup">
+      <label for="restaurantName" class="inputLabel">Nombre del restaurante</label>
+      <input id="restaurantName" name="restaurantName" type="text" ngModel #restaurantName="ngModel" required="true" autocomplete="restaurantName" class="inputField">
+      
+      @if (restaurantName.invalid && !restaurantName.pristine) {
+        <p class="errorMessage">Debe colocar un restaurante válido.</p>
+      }   
+    </div>
+
+    <div class="inputGroup">
+      <label for="password" class="inputLabel">Contraseña</label>
+      <input id="password" name="password" type="password" ngModel #password="ngModel" minlength="4" autocomplete="current-password" class="inputField">
+      
+      @if (password.invalid && !password.pristine) {
+        <p class="errorMessage">Debe colocar una contraseña de al menos 4 caracteres.</p>
+      } 
+    </div>
+      
+    <button [disabled]="isLoading || loginForm.invalid" class="submitButton">Iniciar sesión</button>
+    
+    @if(isLoading){
+      <div class="spinnerContainer">
+        <app-spinner></app-spinner>
+      </div>
+    }
  
-     @if (errorLogin) {
-       <p class="error">Datos de sesión incorrectos, intente nuevamente.</p>
-     } 
-     <p>¿No tenés cuenta? <a routerLink="/register">Registrate</a></p>
+    @if (errorLogin) {
+      <p class="errorMessage">Datos de sesión incorrectos, intente nuevamente.</p>
+    } 
+    
+    <p class="registerText">¿No tenés cuenta? <a routerLink="/register" class="linkText">Registrate</a></p>
   </form>
-  <a routerLink="/home">Home</a>
-</div> 
+  
+  <a routerLink="/home" class="homeLink">Home</a>
+</div>

@@ -1,0 +1,102 @@
+.formContainer {
+  display: flex;
+  flex-direction: column;
+  background-color: #1E1E1E;
+  padding: 40px;
+  border-radius: 12px;
+  border: 1px solid #333333;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.formTitle {
+  color: #D4AF37;
+  text-align: center;
+  margin-top: 0px;
+  margin-bottom: 30px;
+  font-family: 'Poppins', sans-serif;
+}
+
+.mainForm {
+  display: flex;
+  flex-direction: column;
+}
+
+.inputGroup {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 25px;
+}
+
+.inputLabel {
+  color: #ECF0F1;
+  margin-bottom: 10px;
+  font-size: 14px;
+}
+
+.inputField {
+  background-color: #121212;
+  border: 1px solid #333333;
+  color: #ECF0F1;
+  padding: 15px;
+  border-radius: 6px;
+  font-size: 16px;
+  outline: none;
+}
+
+.inputField:focus {
+  border-color: #D4AF37;
+}
+
+.errorMessage {
+  color: #FF6B6B;
+  font-size: 13px;
+  margin-top: 8px;
+  margin-bottom: 0px;
+}
+
+.globalError {
+  color: #FF6B6B;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.actionButtons {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 10px;
+  gap: 15px;
+}
+
+.saveButton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #D4AF37;
+  color: #121212;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 4px;
+  font-weight: 600;
+  cursor: pointer;
+  flex-grow: 1;
+  font-size: 16px;
+}
+
+.saveButton:disabled {
+  background-color: #4a4a4a;
+  color: #888888;
+  cursor: not-allowed;
+}
+
+.cancelButton {
+  color: #D4AF37;
+  text-decoration: none;
+  font-size: 15px;
+  padding: 10px;
+}
+
+.cancelButton:hover {
+  text-decoration: underline;
+}

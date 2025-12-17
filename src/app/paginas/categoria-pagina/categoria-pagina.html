@@ -1,1 +1,39 @@
-<p>categoria-pagina works!</p>
+<div class="formContainer">
+  <header>
+    @if (isEditing) {
+      <h2 class="formTitle">✏️ Editar Categoría</h2>
+    } @else {
+      <h2 class="formTitle">📂 Nueva Categoría</h2>
+    }
+  </header>
+
+  <form (ngSubmit)="handleFormSubmission(newCategoryForm)" #newCategoryForm="ngForm" class="mainForm">
+    
+    <div class="inputGroup">
+      <label for="name" class="inputLabel">Nombre de la categoría</label>
+      <input id="name" type="text" name="name" placeholder="Ej: Bebidas, Postres..."
+             ngModel #name="ngModel" required minlength="2" class="inputField">
+      
+      @if (name.dirty && name.invalid) {
+        <p class="errorMessage">El nombre es obligatorio (min 2 letras).</p>
+      }
+    </div>
+
+    @if (errorBack) {
+      <p class="globalError">No se pudo guardar la categoría. Intente nuevamente.</p>
+    }
+
+    <div class="actionButtons">
+      <button class="saveButton" [disabled]="newCategoryForm.invalid || isLoading">
+        @if (isLoading) {
+          <app-spinner></app-spinner> Guardando...
+        } @else {
+          {{ isEditing ? 'Guardar Cambios' : 'Crear Categoría' }}
+        }
+      </button>
+
+      <a routerLink="/perfiles" class="cancelButton">Cancelar</a>
+    </div>
+
+  </form>
+</div>

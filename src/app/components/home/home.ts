@@ -14,7 +14,7 @@ export class Home {
   }
 
   VerRestaurantes(){
-    this.router.navigate(['/VerRestaurantes'])
+    this.router.navigate(['/restaurante'])
   }
 
   Register(){

@@ -1,0 +1,260 @@
+.menuContainer {
+  background-color: #121212;
+  min-height: 100vh;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.loadingState, .errorState {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 60px;
+  color: #ECF0F1;
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid rgba(212, 175, 55, 0.3);
+  border-top: 4px solid #D4AF37;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 20px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.loadingText, .errorText {
+  color: #D4AF37;
+  font-size: 18px;
+  margin-bottom: 20px;
+}
+
+.restaurantHeader {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 30px;
+  border-bottom: 1px solid #333333;
+  padding-bottom: 20px;
+}
+
+.restaurantTitle {
+  color: #D4AF37;
+  font-family: 'Poppins', sans-serif;
+  font-size: 32px;
+  margin: 0 0 10px 0;
+  text-align: center;
+}
+
+.restaurantInfo {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.infoText {
+  color: #888888;
+  margin: 0;
+  font-size: 14px;
+}
+
+.sectionTitle {
+  color: #ECF0F1;
+  font-family: 'Poppins', sans-serif;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.categoriesNav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 30px;
+}
+
+.categoryButton {
+  background: transparent;
+  border: 1px solid #D4AF37;
+  color: #D4AF37;
+  padding: 8px 16px;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 14px;
+}
+
+.categoryButton:hover {
+  background-color: rgba(212, 175, 55, 0.1);
+}
+
+.activeButton {
+  background-color: #D4AF37 !important;
+  color: #121212 !important;
+  font-weight: 600;
+}
+
+.productsList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+}
+
+.productItem {
+  background-color: #1E1E1E;
+  border: 1px solid #333333;
+  border-radius: 12px;
+  overflow: hidden;
+  flex: 1 1 300px;
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s ease;
+}
+
+.productItem:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+}
+
+.featuredBorder {
+  border: 1px solid #D4AF37;
+  box-shadow: 0 0 10px rgba(212, 175, 55, 0.2);
+}
+
+.cardContent {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.badgeContainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 15px;
+}
+
+.badge {
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.starBadge {
+  background-color: rgba(212, 175, 55, 0.2);
+  color: #D4AF37;
+  border: 1px solid #D4AF37;
+}
+
+.fireBadge {
+  background-color: rgba(255, 107, 107, 0.2);
+  color: #FF6B6B;
+  border: 1px solid #FF6B6B;
+}
+
+.hhBadge {
+  background-color: rgba(85, 239, 196, 0.2);
+  color: #55E6C1;
+  border: 1px solid #55E6C1;
+}
+
+.productTitle {
+  color: #ECF0F1;
+  font-family: 'Poppins', sans-serif;
+  margin: 0 0 10px 0;
+  font-size: 18px;
+}
+
+.productDescription {
+  color: #888888;
+  font-size: 14px;
+  margin: 0 0 15px 0;
+  line-height: 1.5;
+  flex-grow: 1;
+}
+
+.recommendationBox {
+  background-color: #121212;
+  padding: 8px;
+  border-radius: 4px;
+  margin-bottom: 15px;
+  font-size: 12px;
+  color: #ECF0F1;
+  border-left: 3px solid #D4AF37;
+}
+
+.priceContainer {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: auto;
+}
+
+.regularPrice {
+  color: #D4AF37;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.oldPrice {
+  color: #666666;
+  text-decoration: line-through;
+  font-size: 14px;
+}
+
+.finalPrice {
+  color: #D4AF37;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.promoText {
+  background-color: #D4AF37;
+  color: #121212;
+  font-size: 12px;
+  padding: 2px 6px;
+  border-radius: 2px;
+  font-weight: bold;
+}
+
+.noProductsText {
+  color: #888888;
+  font-style: italic;
+  text-align: center;
+  width: 100%;
+  padding: 40px;
+}
+
+.footerActions {
+  margin-top: 40px;
+  display: flex;
+  justify-content: center;
+}
+
+.backButton {
+  background-color: transparent;
+  border: 1px solid #D4AF37;
+  color: #D4AF37;
+  padding: 10px 24px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.backButton:hover {
+  background-color: #D4AF37;
+  color: #121212;
+}

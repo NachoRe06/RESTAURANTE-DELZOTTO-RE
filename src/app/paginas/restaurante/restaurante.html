@@ -1,19 +1,21 @@
-<div class="footer-actions">
-      <a routerLink="/" class="back-link">← Volver al Home</a>
-    </div>
+<div class="footerActions">
+    <a routerLink="/" class="backLink">← Volver al Home</a>
+</div>
+
 <ul>
-    @for (user of userService.users; track $index){
-}
-<div class="contenedor-restaurant container">
-    <div class="row">
+    @for (user of userService.users; track $index){ }
+</ul>
+
+<div class="restaurantListContainer">
+    <div class="cardGrid">
         @for (restaurante of userService.users; track $index) {
-        <div class="col-md-4 mb-4">
-            <div class="card shadow-sm h-100">
-                <div class="card-body text-center">
-                    <h4 class="card-title">{{ restaurante.restaurantName }}</h4>
-                    <p class="card-text mb-1"><strong>Dirección:</strong> {{ restaurante.address }}</p>
-                    <p class="card-text"><strong>Teléfono:</strong> {{ restaurante.phoneNumber }}</p>
-                    <button (click)="viewMenu(restaurante.id)" class="btn btn-outline-primary mt-3">
+        <div class="cardWrapper">
+            <div class="restaurantCard">
+                <div class="cardBody">
+                    <h4 class="cardTitle">{{ restaurante.restaurantName }}</h4>
+                    <p class="cardText"><strong>Dirección:</strong> {{ restaurante.address }}</p>
+                    <p class="cardText"><strong>Teléfono:</strong> {{ restaurante.phoneNumber }}</p>
+                    <button (click)="viewMenu(restaurante.id)" class="menuButton">
                         Ver Menú
                     </button>
                 </div>

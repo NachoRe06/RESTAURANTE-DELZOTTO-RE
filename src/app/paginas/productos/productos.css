@@ -1,0 +1,119 @@
+.productFormContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px;
+  background-color: #121212;
+  min-height: 100vh;
+}
+
+.formTitle {
+  color: #D4AF37;
+  font-family: 'Poppins', sans-serif;
+  font-size: 28px;
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.formWrapper {
+  background-color: #1E1E1E;
+  padding: 40px;
+  border-radius: 12px;
+  border: 1px solid #333333;
+  width: 100%;
+  max-width: 500px;
+}
+
+.productForm {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.inputGroup {
+  display: flex;
+  flex-direction: column;
+}
+
+.inputLabel {
+  color: #ECF0F1;
+  font-size: 14px;
+  margin-bottom: 8px;
+}
+
+.inputField, .selectField {
+  background-color: #121212;
+  border: 1px solid #333333;
+  color: #ECF0F1;
+  padding: 15px;
+  border-radius: 6px;
+  font-size: 16px;
+  outline: none;
+  font-family: inherit;
+}
+
+.inputField:focus, .selectField:focus {
+  border-color: #D4AF37;
+}
+
+.checkboxGroup {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 0;
+  border-bottom: 1px solid #333333;
+}
+
+.checkboxLabel {
+  color: #ECF0F1;
+  font-size: 15px;
+}
+
+.checkboxInput {
+  accent-color: #D4AF37;
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+}
+
+.errorMessage {
+  color: #FF6B6B;
+  font-size: 13px;
+  margin-top: 5px;
+  margin-bottom: 0;
+}
+
+.actionButtons {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.submitButton {
+  background-color: #D4AF37;
+  color: #121212;
+  border: none;
+  padding: 15px 30px;
+  border-radius: 4px;
+  font-weight: 600;
+  font-size: 16px;
+  cursor: pointer;
+  width: 100%;
+  transition: opacity 0.3s;
+}
+
+.submitButton:disabled {
+  background-color: #4a4a4a;
+  color: #888888;
+  cursor: not-allowed;
+}
+
+.submitButton:hover:not(:disabled) {
+  opacity: 0.9;
+}
+
+.spinnerContainer {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}

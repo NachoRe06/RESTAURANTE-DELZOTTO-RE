@@ -1,0 +1,129 @@
+.registerContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #1E1E1E;
+  padding: 40px;
+  border-radius: 12px;
+  border: 1px solid #333333;
+  max-width: 500px;
+  margin: 40px auto;
+}
+
+.formTitle {
+  color: #D4AF37;
+  font-family: 'Poppins', sans-serif;
+  margin-top: 0;
+  margin-bottom: 30px;
+  font-size: 28px;
+  text-align: center;
+}
+
+.formContent {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.inputGroup {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+}
+
+.inputLabel {
+  color: #ECF0F1;
+  margin-bottom: 8px;
+  font-size: 14px;
+}
+
+.inputField {
+  background-color: #121212;
+  border: 1px solid #333333;
+  color: #ECF0F1;
+  padding: 12px;
+  border-radius: 6px;
+  font-size: 16px;
+  outline: none;
+}
+
+.inputField:focus {
+  border-color: #D4AF37;
+}
+
+.divider {
+  border: 0;
+  border-top: 1px solid #333333;
+  margin: 20px 0;
+  width: 100%;
+}
+
+.noteText {
+  color: #888888;
+  font-size: 13px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.errorMessage {
+  color: #FF6B6B;
+  font-size: 14px;
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+.submitButton {
+  background-color: #D4AF37;
+  color: #121212;
+  border: none;
+  padding: 15px;
+  border-radius: 4px;
+  font-weight: 600;
+  font-size: 16px;
+  cursor: pointer;
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.submitButton:disabled {
+  background-color: #4a4a4a;
+  color: #888888;
+  cursor: not-allowed;
+}
+
+.loginText {
+  color: #ECF0F1;
+  text-align: center;
+  font-size: 14px;
+  margin-top: 20px;
+}
+
+.linkText {
+  color: #D4AF37;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.linkText:hover {
+  text-decoration: underline;
+}
+
+.cancelContainer {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.cancelLink {
+  color: #FF6B6B;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.cancelLink:hover {
+  text-decoration: underline;
+}

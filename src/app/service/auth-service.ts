@@ -11,7 +11,6 @@ export class AuthService implements OnInit{
   revisionTokenInterval: number|undefined;
 
   ngOnInit(): void {
-    //si tengo sesion iniciada revisa que no este vencida 
     if(this.token){
       this.revisionTokenInterval = this.revisionToken()
     }
@@ -28,14 +27,10 @@ async login(loginData: LoginData): Promise<boolean> {
       });
 
       if (res.ok) {
-        // 1. Convertimos la respuesta a JSON para obtener el objeto limpio
-        const responseData = await res.json();
 
-        // 2. Asignamos el token a la variable de la clase
+        const responseData = await res.json();
         this.token = responseData.token;
 
-        // 3. ✅ SOLUCIÓN AL ERROR ROJO:
-        // Verificamos que 'this.token' exista (no sea null) antes de guardarlo
         if (this.token) {
           localStorage.setItem("token", this.token);
         }
@@ -52,7 +47,7 @@ async login(loginData: LoginData): Promise<boolean> {
 
     logout(){
       this.token = null;
-      localStorage.removeItem("token");/** guarda variables en el navegador para que no se borren al cambiar de pagina o dia */
+      localStorage.removeItem("token");
       this.router.navigate(["/login"]);
     }
 

@@ -12,7 +12,6 @@ export class CategoriesService {
   readonly API_USERS_URL = "https://w370351.ferozo.com/api/Users";
   readonly API_CATEGORIES_URL = "https://w370351.ferozo.com/api/Categories";
 
-  // --- OBTENER CATEGORÍAS ---
   async getCategoriesByRestaurant(restaurantId: number) {
     try {
       const res = await fetch(`${this.API_USERS_URL}/${restaurantId}/categories`);
@@ -27,10 +26,7 @@ export class CategoriesService {
     }
   }
 
-  // --- AGREGAR CATEGORÍA (Aquí estaba el problema) ---
   async addCategory(category: NewCategory) {
-    // 1. Verificamos datos antes de enviar
-    console.log("Token actual:", this.authService.token);
 
     if (!this.authService.token) {
       console.error("❌ ERROR: No hay token de autenticación.");
@@ -42,7 +38,6 @@ export class CategoriesService {
         method: "POST",
         headers: {
           'Content-Type': 'application/json',
-          // USAMOS EL SIGNO + PARA CONCATENAR (Es más seguro que las backticks)
           'Authorization': "Bearer " + this.authService.token 
         },
         body: JSON.stringify(category)
@@ -50,14 +45,12 @@ export class CategoriesService {
 
       if (!res.ok) {
         console.error("❌ Error del servidor:", res.status, res.statusText);
-        // Intentamos leer el mensaje de error del backend si existe
         const errorText = await res.text();
         console.error("Detalle del error:", errorText);
         return undefined;
       }
       
       const newCategory: Category = await res.json();
-      console.log("✅ Categoría creada:", newCategory);
       
       this.categories.update(current => [...current, newCategory]);
       return newCategory;
@@ -68,7 +61,6 @@ export class CategoriesService {
     }
   }
 
-  // --- ACTUALIZAR CATEGORÍA ---
   async updateCategory(id: number, categoryData: UpdateCategoryRequestDto) {
     if (!this.authService.token) return undefined;
 
@@ -97,8 +89,6 @@ export class CategoriesService {
       return undefined;
     }
   }
-
-  // --- BORRAR CATEGORÍA ---
   async deleteCategory(id: string | number) {
     if (!this.authService.token) return false;
 
@@ -106,7 +96,7 @@ export class CategoriesService {
       const res = await fetch(this.API_CATEGORIES_URL + "/" + id, {
         method: "DELETE",
         headers: {
-          'Authorization': "Bearer " + this.authService.token
+          'Authorization': "Bearer " + this.authService.token 
         }
       });
 

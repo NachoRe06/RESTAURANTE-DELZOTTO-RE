@@ -1,120 +1,94 @@
-import { Component, inject, input, OnInit, signal, computed, numberAttribute } from '@angular/core';
-import { Router } from '@angular/router';
-import { UsersService } from '../../service/user-service';
-import { RestaurantService } from '../../service/product-service';
-import { CategoriesService } from '../../service/category-service';
+import { Component, inject, OnInit, signal, computed } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
+import { CommonModule } from '@angular/common';
 import { User } from '../../interfaces/user';
 import { Category } from '../../interfaces/Category';
 import { Product } from '../../interfaces/product';
+import { UsersService } from '../../service/user-service';
+import { ProductService } from '../../service/product-service';
+import { CategoriesService } from '../../service/category-service';
 
 @Component({
   selector: 'app-ver-restaurante',
-  imports: [],
+  standalone: true,
+  imports: [CommonModule],
   templateUrl: './ver-restaurante.html',
   styleUrl: './ver-restaurante.css',
 })
-export class VerRestaurante {
-// Servicios
+export class VerRestaurante implements OnInit {
+  
+  private route = inject(ActivatedRoute);
   private router = inject(Router);
   private usersService = inject(UsersService);
-  private restaurantService = inject(RestaurantService);
+  private restaurantService = inject(ProductService);
   private categoriesService = inject(CategoriesService);
 
-// ❌ ANTES: idRestaurant = input.required<number>();
-  
-  // ✅ AHORA: Usamos 'transform' para convertir el string de la URL en número automáticamente
-  // El alias 'idRestaurant' coincide con la ruta que acabamos de arreglar.
-  idRestaurant = input.required<number, string>({ transform: numberAttribute });
-
-  // ESTADO (Signals)
   isLoading = signal<boolean>(true);
   user = signal<User | undefined>(undefined);
   products = signal<Product[]>([]);
   categories = signal<Category[]>([]);
+  
   selectedCategoryId = signal<number | null>(null);
 
-  // LÓGICA COMPUTADA (La forma moderna de filtrar)
-  // Se actualiza automáticamente si cambia 'products' o 'selectedCategoryId'
+  // Esta lista se actualiza sola cuando cambias los productos o la categoría seleccionada
   filteredProducts = computed(() => {
     const selectedId = this.selectedCategoryId();
     const currentProducts = this.products();
 
     if (selectedId === null) {
-      return currentProducts;
+      return currentProducts; 
     }
     return currentProducts.filter(p => p.categoryId === selectedId);
   });
 
-  // async ngOnInit() {
-  //   const restaurantId = this.idRestaurant();
-    
-  //   if (restaurantId) {
-  //     this.isLoading.set(true);
-      
-  //     try {
-  //       // 1. Obtener Info del Restaurante
-  //       let restaurantUser = this.usersService.users.find(r => r.id === restaurantId);
-  //       if (!restaurantUser) {
-  //         // Asumiendo que getUsersbyId devuelve una Promesa con el User
-  //         restaurantUser = await this.usersService.getUsersbyId(restaurantId);
-  //       }
-  //       this.user.set(restaurantUser);
+  async ngOnInit() {
+    const idParam = this.route.snapshot.paramMap.get('idRestaurant');
 
-  //       // 2. Obtener Productos (Usando el método corregido que devuelve Product[])
-  //       const prods = await this.restaurantService.getProductbyrestaurant(restaurantId);
-  //       if (prods) {
-  //         this.products.set(prods);
-  //       }
+    if (idParam) {
+      const id = Number(idParam); // Convertir texto a número
+  
+      // Si es un número válido, cargamos los datos
+      if (!isNaN(id)) {
+        await this.loadData(id);
+      } else {
+        console.error("El ID de la URL no es un número válido");
+        this.isLoading.set(false);
+      }
+    } else {
+      console.error("No se encontró el parámetro 'idRestaurant' en la URL");
+      this.isLoading.set(false);
+    }
+  }
 
-  //       // 3. Obtener Categorías
-  //       await this.categoriesService.getCategoriesByRestaurant(restaurantId);
-  //       this.categories.set(this.categoriesService.categories());
-
-  //     } catch (error) {
-  //       console.error('Error cargando datos del restaurante:', error);
-  //     } finally {
-  //       this.isLoading.set(false);
-  //     }
-  //   }
-  // }
-
-// En restaurants-menu.ts
-
-async ngOnInit() {
-  // 1. Obtenemos el ID del Input Signal
-  const id = this.idRestaurant(); 
-
-  if (id) {
-    this.isLoading.set(true); // Activa el spinner
+  async loadData(id: number) {
+    this.isLoading.set(true);
 
     try {
-      // --- A. Cargar Datos del Restaurante (Nombre, Dirección) ---
-      // Primero buscamos si ya lo tenemos en memoria
+      // Cargar Datos del Restaurante (Dueño)
       let restaurantUser = this.usersService.users.find(r => r.id === id);
       
-      // Si no está en memoria, lo pedimos al backend
+      // Si no está en memoria (ej: entras directo por link o eres invitado), lo pedimos al back
       if (!restaurantUser) {
         restaurantUser = await this.usersService.getUsersbyId(id);
       }
       this.user.set(restaurantUser);
 
-      // --- B. Cargar Productos (SOLUCIÓN AL ERROR) ---
-      // Usamos 'id' que definimos arriba, no 'restaurantId'
+      // Cargar Productos del Restaurante
       const prods = await this.restaurantService.getProductbyrestaurant(id);
-      this.products.set(prods);
+      this.products.set(prods || []);
 
-      // --- C. Cargar Categorías ---
+      // Cargar Categorías del Restaurante
       await this.categoriesService.getCategoriesByRestaurant(id);
       this.categories.set(this.categoriesService.categories());
 
     } catch (error) {
-      console.error("Falló la carga del menú:", error);
+      console.error("Error cargando el menú del restaurante:", error);
     } finally {
-      // --- D. Apagar Spinner (SIEMPRE) ---
+    
       this.isLoading.set(false);
     }
   }
-}
+
 
   selectCategory(categoryId: number | null) {
     this.selectedCategoryId.set(categoryId);
@@ -122,10 +96,13 @@ async ngOnInit() {
 
   calculateFinalPrice(product: Product): number {
     const discount = product.discount || 0;
-    return product.price - (product.price * (discount / 100));
+    if (discount > 0) {
+      return product.price - (product.price * (discount / 100));
+    }
+    return product.price;
   }
 
   volver() {
-    this.router.navigate(['/restaurants']);
+    this.router.navigate(['/restaurante']);
   }
 }

@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { Router, RouterModule } from '@angular/router'; // Importar Router
+import { Router, RouterModule } from '@angular/router'; 
 import { AuthService } from '../../service/auth-service';
 import { FormsModule, NgForm } from '@angular/forms';
 import { Spinner } from '../../components/spinner/spinner';
@@ -21,7 +21,6 @@ export class LoginPagina {
   async login(form: NgForm) {
     this.errorLogin = false;
     
-    // Validaciones básicas
     if (!form.value.restaurantName || !form.value.password) {
       this.errorLogin = true;
       return;
@@ -35,11 +34,8 @@ export class LoginPagina {
     this.isLoading = false;
 
     if (loginExitoso) {
-      // CASO ÉXITO: Redirigir al panel de administración
-      // existe? en tu app.routes.ts
-      this.router.navigate(['/perfil']); 
+      this.router.navigate(['/perfiles']); 
     } else {
-      //  CASO ERROR: Mostrar mensaje rojo
       this.errorLogin = true;
     }
   }

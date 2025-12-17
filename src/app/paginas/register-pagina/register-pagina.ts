@@ -19,9 +19,8 @@ export class RegisterPagina implements OnInit {
   
   isLoading = false;
   errorRegister = false;
-  isEditing = false; // Bandera para saber en qué modo estamos
+  isEditing = false;
 
-  // HACER UNA INTERFAZ PARA ESTO <===================================================================
   userData: any = {
     restaurantName: '',
     firstName: '',
@@ -35,8 +34,7 @@ export class RegisterPagina implements OnInit {
   form = viewChild<NgForm>('registerForm');
 
   async ngOnInit() {
-    // Detectamos si estamos en la ruta de edición
-    if (this.router.url.includes('/profile/edit')) {
+    if (this.router.url.includes('/perfiles/edit')) {
       this.isEditing = true;
       await this.loadUserData();
     }
@@ -49,15 +47,15 @@ export class RegisterPagina implements OnInit {
       if (userId) {
         const user = await this.usersService.getUsersbyId(userId);
         if (user) {
-          // Rellenamos userData con lo que vino del back
+
           this.userData = {
-            id: user.id, // Guardamos el ID para el update
+            id: user.id, 
             restaurantName: user.restaurantName,
             firstName: user.firstName,
             lastName: user.lastName,
             address: user.address,
             phoneNumber: user.phoneNumber,
-            password: '', // Contraseña vacía por seguridad
+            password: '', 
             password2: ''
           };
         }
@@ -72,7 +70,7 @@ export class RegisterPagina implements OnInit {
   async register(form: NgForm) {
     this.errorRegister = false;
     
-    // Validación de contraseñas iguales
+
     if (form.value.password !== form.value.password2) {
       alert("Las contraseñas no coinciden");
       return;
@@ -84,25 +82,23 @@ export class RegisterPagina implements OnInit {
       let result;
 
       if (this.isEditing) {
-        // --- MODO EDICIÓN ---
-        // Combinamos el ID original con los datos del formulario
+        // MODO EDICIÓN
         const updateData = { 
           ...form.value, 
           id: this.userData.id,
-          // Si el backend pide userName, asegúrate de mandarlo
-          userName: form.value.firstName // o email, según tu back
+          userName: form.value.firstName 
         };
         
         result = await this.usersService.updateUser(updateData);
         
         if (result) {
-          this.router.navigate(['/perfil']); // Volver al panel
+          this.router.navigate(['/perfiles']); 
         } else {
           this.errorRegister = true;
         }
 
       } else {
-        // --- MODO REGISTRO ---
+        // MODO REGISTER
         result = await this.usersService.register(form.value);
         
         if (result) {

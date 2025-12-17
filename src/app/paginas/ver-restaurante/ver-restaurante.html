@@ -1,76 +1,76 @@
-<div class="menu-container">
+<div class="menuContainer">
   
   @if(isLoading()){
-    <div class="loading-state">
+    <div class="loadingState">
       <div class="spinner"></div>
-      <p>Cargando menú...</p>
+      <p class="loadingText">Cargando menú...</p>
     </div>
   } 
   
   @else if(!user()) {
-    <div class="error-state">
-      <p>⚠️ No se encontró la información del restaurante.</p>
-      <button (click)="volver()">Volver</button>
+    <div class="errorState">
+      <p class="errorText">⚠️ No se encontró la información del restaurante.</p>
+      <button (click)="volver()" class="backButton">Volver</button>
     </div>
   } 
   
   @else {
-    <header class="restaurant-header">
-      <h1>{{user()?.restaurantName}}</h1>
-      <div class="restaurant-info">
-        <p>📞 {{user()?.phoneNumber}}</p>
-        <p>📍 {{user()?.address}}</p>
+    <header class="restaurantHeader">
+      <h1 class="restaurantTitle">{{user()?.restaurantName}}</h1>
+      <div class="restaurantInfo">
+        <p class="infoText">📞 {{user()?.phoneNumber}}</p>
+        <p class="infoText">📍 {{user()?.address}}</p>
       </div>
     </header>
         
-    <h2 class="section-title">Nuestro Menú</h2>
+    <h2 class="sectionTitle">Nuestro Menú</h2>
     
-    <div class="categories-nav">
-      <button (click)="selectCategory(null)"
-              [class.active]="selectedCategoryId() === null">
+    <div class="categoriesNav">
+      <button (click)="selectCategory(null)" class="categoryButton"
+              [class.activeButton]="selectedCategoryId() === null">
         Todas
       </button>
 
       @for (category of categories(); track category.id) {
-        <button (click)="selectCategory(category.id)"
-                [class.active]="selectedCategoryId() === category.id">
+        <button (click)="selectCategory(category.id)" class="categoryButton"
+                [class.activeButton]="selectedCategoryId() === category.id">
           {{ category.name }}
         </button>
       }
     </div>
 
-    <div class="products-list">
+    <div class="productsList">
       @for (producto of filteredProducts(); track producto.id) {
         
-        <article class="product-item" 
-                 [class.featured-border]="producto.featured">
+        <article class="productItem" 
+                 [class.featuredBorder]="producto.featured">
           
-          <div class="card-content">
-            <div class="badges">
-              @if(producto.featured){ <span class="badge star">⭐ Destacado</span> }
-              @if(producto.discount){ <span class="badge fire">{{producto.discount}}% OFF 🔥</span> }
-              @if(producto.hasHappyHour){ <span class="badge hh">Happy Hour 🍻</span> }
+          <div class="cardContent">
+            <div class="badgeContainer">
+              @if(producto.featured){ <span class="badge starBadge">⭐ Destacado</span> }
+              @if(producto.discount){ <span class="badge fireBadge">{{producto.discount}}% OFF 🔥</span> }
+              @if(producto.hasHappyHour){ <span class="badge hhBadge">Happy Hour 🍻</span> }
             </div>
 
-            <h4>{{ producto.name }}</h4>
-            <p class="description">{{ producto.description }}</p>
+            <h4 class="productTitle">{{ producto.name }}</h4>
+            <p class="productDescription">{{ producto.description }}</p>
             
             @if (producto.recommendedFor) {
-              <div class="recommendation">
+              <div class="recommendationBox">
                 <span>🔔 Ideal para: {{ producto.recommendedFor }} personas</span>
               </div>
             }
 
-            <div class="price-info">
+            <div class="priceContainer">
               @if (producto.discount > 0 || producto.hasHappyHour) {
-                <span class="old-price">{{producto.price }}</span>
-                <span class="final-price">{{calculateFinalPrice(producto) }}</span>
+                <span class="oldPrice">{{producto.price }}</span>
+                <span class="finalPrice">{{calculateFinalPrice(producto) }}</span>
               } @else {
-                <span class="regular-price">{{producto.price }}</span>
+                <span class="regularPrice">{{producto.price }}</span>
               }
 
               @if (producto.hasHappyHour) {
-                <span class="promo-text">2x1</span> <!-- editar happy hour -->
+                <span class="promoText">2x1</span> 
               }
             </div>
           </div>
@@ -78,12 +78,12 @@
         </article>
 
       } @empty {
-        <p class="no-products">No hay productos en esta categoría.</p>
+        <p class="noProductsText">No hay productos en esta categoría.</p>
       }
     </div>
 
-    <div class="actions">
-      <button class="btn-back" (click)="volver()">⬅ Regresar a Restaurantes</button>       
+    <div class="footerActions">
+      <button class="backButton" (click)="volver()">⬅ Regresar a Restaurantes</button>       
     </div>
   }
 

@@ -1,1 +1,123 @@
-<p>perfiles works!</p>
+<div class="configContainer">
+  
+  @if (cargando) {
+    <div class="loadingState">
+      <p class="loadingText">⏳ Cargando panel de administración...</p>
+    </div>
+  } 
+  @else if (error) {
+    <div class="errorState">
+      <p class="errorText">❌ {{ error }}</p>
+      <a routerLink="/home" class="backLink">Volver al inicio</a>
+    </div>
+  } 
+  @else if (user) {
+
+    <section class="infoCard">
+      <div class="headerRow">
+        <h2 class="cardTitle">🏪 Mi Restaurante</h2>
+        <div class="headerActions">
+           <button class="iconButton" title="Editar datos" routerLink="/perfiles/edit">✏️</button>
+           <button class="iconButton danger" title="Eliminar cuenta" (click)="openDeleteConfirm()">🗑️</button>
+        </div>
+      </div>
+
+      <div class="infoList">
+        <div class="infoItem">
+          <span class="infoLabel">Nombre:</span>
+          <span class="infoValue">{{ user.restaurantName }}</span>
+        </div>
+        <div class="infoItem">
+          <span class="infoLabel">Dueño:</span>
+          <span class="infoValue">{{ user.firstName }} {{ user.lastName }}</span>
+        </div>
+        <div class="infoItem">
+          <span class="infoLabel">Dirección:</span>
+          <span class="infoValue">{{ user.address }}</span>
+        </div>
+        <div class="infoItem">
+          <span class="infoLabel">Teléfono:</span>
+          <span class="infoValue">{{ user.phoneNumber }}</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="infoCard">
+      <div class="headerRow">
+        <h3 class="sectionTitle">📂 Categorías</h3>
+        <button class="primaryButton" [routerLink]="['/categoria-pagina/edit', 'nuevo']">
+          + Nueva Categoría
+        </button>
+      </div>
+
+      <div class="listContainer">
+        @for (cat of categories; track cat.id) {
+          <div class="listItem">
+            <span class="itemName">{{ cat.name }}</span>
+            <div class="itemActions">
+                <button class="smallButton" [routerLink]="['/categoria-pagina/edit', cat.id]">
+                  ✏️
+                </button>
+              <button class="smallButton danger" (click)="deleteCategory(cat.id)">🗑️</button>
+            </div>
+          </div>
+        } @empty {
+          <p class="emptyMessage">No hay categorías creadas.</p> 
+        }
+      </div>
+    </section>
+
+    <section class="infoCard">
+      <div class="headerRow">
+        <h3 class="sectionTitle">🍔 Mis Productos</h3>
+        <button class="primaryButton" [routerLink]="['/productos/edit', 'nuevo']">
+          + Nuevo Producto
+        </button>
+      </div>
+
+      <div class="listContainer">
+        @for (prod of products; track prod.id) {
+          <div class="listItem">
+            <div class="productInfo">
+              <span class="itemName">{{ prod.name }}</span>
+              <span class="itemPrice">{{ prod.price | currency }}</span>
+            </div>
+            
+            <div class="itemActions">
+              <button class="smallButton" [routerLink]="['/productos/edit', prod.id]">
+                ✏️ Editar
+              </button>
+              <button class="smallButton danger" (click)="deleteProduct(prod.id)">🗑️</button>
+            </div>
+          </div>
+        } @empty {
+          <p class="emptyMessage">Aún no tienes productos en el menú.</p>
+        }
+      </div>
+    </section>
+    
+    <div class="footerActions">
+      <a routerLink="/" class="backLink">← Volver al Home</a>
+    </div>
+
+    @if (showDeleteConfirm) {
+      <div class="modalOverlay">
+        <div class="modalContent">
+          <h3 class="modalTitle">⚠️ Zona de Peligro</h3>
+          <p class="modalText">¿Estás seguro de que quieres eliminar tu cuenta y todo tu restaurante? Esta acción no se puede deshacer.</p>
+          <div class="modalActions">
+            <button type="button" class="secondaryButton" (click)="closeDeleteConfirm()" [disabled]="isDeleting">
+              Cancelar
+            </button>
+            <button type="button" class="dangerButton" (click)="deleteUser()" [disabled]="isDeleting">
+              {{ isDeleting ? 'Eliminando...' : 'Sí, Eliminar Todo' }}
+            </button>
+          </div>
+        </div>
+      </div>
+    }
+
+  } @else {
+    <p class="errorText">No se pudo cargar la información.</p>
+  }
+</div>

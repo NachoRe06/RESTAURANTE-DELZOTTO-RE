@@ -1,1 +1,90 @@
-<p>productos works!</p>
+<div class="productFormContainer">
+    
+    @if (idProduct()) {
+      <h2 class="formTitle">Editar Producto</h2>
+    } @else {
+      <h2 class="formTitle">Nuevo Producto</h2>
+    }
+
+    <div class="formWrapper">
+        <form (ngSubmit)="handleFormSubmission(newProductForm)" #newProductForm="ngForm" class="productForm">
+            
+            <div class="inputGroup">
+                <input id="name" type="text" name="name" placeholder="Nombre del Producto"
+                    [ngModel]="productoOriginal?.name" #name="ngModel" required class="inputField" autocomplete="off">
+                
+                @if (name.dirty && name.invalid) {
+                    <p class="errorMessage">El nombre es obligatorio.</p>
+                }
+            </div>
+
+            <div class="inputGroup">
+                <input id="description" type="text" name="description" placeholder="Descripción del Producto"
+                    [ngModel]="productoOriginal?.description" #description="ngModel" required class="inputField" autocomplete="off">
+                
+                @if (description.dirty && description.invalid) {
+                    <p class="errorMessage">La descripción es obligatoria.</p>
+                }
+            </div>
+
+            <div class="inputGroup">
+                <input id="price" type="number" name="price" placeholder="Precio" 
+                    [ngModel]="productoOriginal?.price" #price="ngModel" required class="inputField" autocomplete="off">
+                
+                @if (price.dirty && price.invalid) {
+                    <p class="errorMessage">Introduzca el precio.</p>
+                }
+            </div>
+
+            <div class="checkboxGroup">
+                <label for="IsFeatured" class="checkboxLabel">¿Desea destacar su producto?</label>
+                <input id="IsFeatured" type="checkbox" name="featured"
+                    [ngModel]="productoOriginal?.isDestacado" #IsFeatured="ngModel" class="checkboxInput">
+            </div>
+
+            <div class="inputGroup">
+                <input id="recommendedFor" type="number" name="recommendedFor" placeholder="Cantidad de comensales"
+                    [ngModel]="productoOriginal?.recommendedFor" #recommendedFor="ngModel" required class="inputField" autocomplete="off">
+            </div>
+
+            <div class="inputGroup">
+                <input id="discount" type="number" name="discount" placeholder="Descuento (%)"
+                    [ngModel]="productoOriginal?.discount" #discount="ngModel" class="inputField" autocomplete="off">
+            </div>
+
+            <div class="checkboxGroup">
+                <label for="hasHappyHour" class="checkboxLabel">¿Su producto tiene Happy Hour?</label>
+                <input id="hasHappyHour" type="checkbox" name="hasHappyHour" 
+                    [ngModel]="productoOriginal?.hasHappyHour" #hasHappyHour="ngModel" class="checkboxInput">
+            </div>
+
+            <div class="inputGroup">
+                <label for="categoryId" class="inputLabel">Categoría</label>
+                <select name="categoryId" id="categoryId" required 
+                    [ngModel]="productoOriginal?.categoryId" #categoryId="ngModel" class="selectField">
+                    
+                    @for (category of categoriesService.categories(); track $index) {
+                        <option [value]="category.id">{{ category.name }}</option>
+                    }
+                </select>
+            </div>
+
+            <div class="actionButtons">
+                <button class="submitButton" type="submit" [disabled]="newProductForm.invalid || isLoading">
+                    @if (isLoading) {
+                        ⏳ Guardando...
+                    } @else {
+                        {{ idProduct() ? 'Guardar Cambios' : 'Crear Producto' }}
+                    }
+                </button>
+            </div>
+
+            @if (isLoading) {
+                <div class="spinnerContainer">
+                    <app-spinner></app-spinner>
+                </div>
+            }
+
+        </form>
+    </div>
+</div>

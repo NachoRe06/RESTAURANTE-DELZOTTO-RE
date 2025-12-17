@@ -1,0 +1,288 @@
+.configContainer {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  max-width: 800px;
+  margin: 0 auto;
+  gap: 30px;
+  background-color: #121212;
+  min-height: 100vh;
+}
+
+.loadingState, .errorState {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 50px;
+  color: #ECF0F1;
+}
+
+.loadingText {
+  color: #D4AF37;
+  font-size: 18px;
+}
+
+.errorText {
+  color: #FF6B6B;
+  font-size: 16px;
+  margin-bottom: 20px;
+}
+
+.infoCard {
+  background-color: #1E1E1E;
+  border: 1px solid #333333;
+  border-radius: 12px;
+  padding: 25px;
+  display: flex;
+  flex-direction: column;
+}
+
+.headerRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #333333;
+  padding-bottom: 15px;
+}
+
+.cardTitle {
+  color: #D4AF37;
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  font-size: 24px;
+}
+
+.sectionTitle {
+  color: #ECF0F1;
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  font-size: 20px;
+}
+
+.headerActions {
+  display: flex;
+  gap: 10px;
+}
+
+.iconButton {
+  background: transparent;
+  border: 1px solid #D4AF37;
+  color: #D4AF37;
+  border-radius: 4px;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  font-size: 18px;
+  transition: all 0.3s ease;
+}
+
+.iconButton:hover {
+  background-color: #D4AF37;
+  color: #121212;
+}
+
+.iconButton.danger {
+  border-color: #FF6B6B;
+  color: #FF6B6B;
+}
+
+.iconButton.danger:hover {
+  background-color: #FF6B6B;
+  color: white;
+}
+
+.infoList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.infoItem {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 200px;
+}
+
+.infoLabel {
+  color: #888888;
+  font-size: 12px;
+  text-transform: uppercase;
+  margin-bottom: 5px;
+}
+
+.infoValue {
+  color: #ECF0F1;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.primaryButton {
+  background-color: #D4AF37;
+  color: #121212;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.primaryButton:hover {
+  opacity: 0.9;
+}
+
+.listContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.listItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #121212;
+  padding: 15px;
+  border-radius: 8px;
+  border: 1px solid #333333;
+}
+
+.itemName {
+  color: #ECF0F1;
+  font-weight: 500;
+}
+
+.itemPrice {
+  color: #D4AF37;
+  font-weight: bold;
+  margin-left: 10px;
+}
+
+.productInfo {
+  display: flex;
+  flex-direction: column;
+}
+
+.itemActions {
+  display: flex;
+  gap: 10px;
+}
+
+.smallButton {
+  background: transparent;
+  border: 1px solid #666666;
+  color: #ECF0F1;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 12px;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+}
+
+.smallButton:hover {
+  border-color: #D4AF37;
+  color: #D4AF37;
+}
+
+.smallButton.danger {
+  border-color: #FF6B6B;
+  color: #FF6B6B;
+}
+
+.smallButton.danger:hover {
+  background-color: #FF6B6B;
+  color: white;
+}
+
+.emptyMessage {
+  color: #666666;
+  text-align: center;
+  padding: 20px;
+  font-style: italic;
+}
+
+.footerActions {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.backLink {
+  color: #D4AF37;
+  text-decoration: none;
+  font-size: 16px;
+}
+
+.backLink:hover {
+  text-decoration: underline;
+}
+
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modalContent {
+  background-color: #1E1E1E;
+  border: 1px solid #FF6B6B;
+  padding: 30px;
+  border-radius: 12px;
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: 0 0 30px rgba(0,0,0,0.5);
+}
+
+.modalTitle {
+  color: #FF6B6B;
+  margin-top: 0;
+}
+
+.modalText {
+  color: #ECF0F1;
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+.modalActions {
+  display: flex;
+  gap: 15px;
+  width: 100%;
+  justify-content: center;
+}
+
+.secondaryButton {
+  background-color: transparent;
+  border: 1px solid #888888;
+  color: #ECF0F1;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.dangerButton {
+  background-color: #FF6B6B;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+}
