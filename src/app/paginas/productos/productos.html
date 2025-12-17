@@ -1,17 +1,17 @@
 <div class="productFormContainer">
     
-    @if (idProduct()) {
+    @if (currentIdProduct) {
       <h2 class="formTitle">Editar Producto</h2>
     } @else {
       <h2 class="formTitle">Nuevo Producto</h2>
     }
 
     <div class="formWrapper">
-        <form (ngSubmit)="handleFormSubmission(newProductForm)" #newProductForm="ngForm" class="productForm">
+        <form (ngSubmit)="handleFormSubmission(newProductForm)" #newProductForm="ngForm" class="productForm" autocomplete="off">
             
             <div class="inputGroup">
                 <input id="name" type="text" name="name" placeholder="Nombre del Producto"
-                    [ngModel]="productoOriginal?.name" #name="ngModel" required class="inputField" autocomplete="off">
+                    [ngModel]="productoOriginal?.name" #name="ngModel" required class="inputField">
                 
                 @if (name.dirty && name.invalid) {
                     <p class="errorMessage">El nombre es obligatorio.</p>
@@ -20,7 +20,7 @@
 
             <div class="inputGroup">
                 <input id="description" type="text" name="description" placeholder="Descripción del Producto"
-                    [ngModel]="productoOriginal?.description" #description="ngModel" required class="inputField" autocomplete="off">
+                    [ngModel]="productoOriginal?.description" #description="ngModel" required class="inputField">
                 
                 @if (description.dirty && description.invalid) {
                     <p class="errorMessage">La descripción es obligatoria.</p>
@@ -29,7 +29,7 @@
 
             <div class="inputGroup">
                 <input id="price" type="number" name="price" placeholder="Precio" 
-                    [ngModel]="productoOriginal?.price" #price="ngModel" required class="inputField" autocomplete="off">
+                    [ngModel]="productoOriginal?.price" #price="ngModel" required class="inputField">
                 
                 @if (price.dirty && price.invalid) {
                     <p class="errorMessage">Introduzca el precio.</p>
@@ -44,12 +44,12 @@
 
             <div class="inputGroup">
                 <input id="recommendedFor" type="number" name="recommendedFor" placeholder="Cantidad de comensales"
-                    [ngModel]="productoOriginal?.recommendedFor" #recommendedFor="ngModel" required class="inputField" autocomplete="off">
+                    [ngModel]="productoOriginal?.recommendedFor" #recommendedFor="ngModel" required class="inputField">
             </div>
 
             <div class="inputGroup">
                 <input id="discount" type="number" name="discount" placeholder="Descuento (%)"
-                    [ngModel]="productoOriginal?.discount" #discount="ngModel" class="inputField" autocomplete="off">
+                    [ngModel]="productoOriginal?.discount" #discount="ngModel" class="inputField">
             </div>
 
             <div class="checkboxGroup">
@@ -74,7 +74,7 @@
                     @if (isLoading) {
                         ⏳ Guardando...
                     } @else {
-                        {{ idProduct() ? 'Guardar Cambios' : 'Crear Producto' }}
+                        {{ currentIdProduct ? 'Guardar Cambios' : 'Crear Producto' }}
                     }
                 </button>
             </div>
