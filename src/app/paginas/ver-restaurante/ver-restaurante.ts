@@ -27,10 +27,9 @@ export class VerRestaurante implements OnInit {
   user = signal<User | undefined>(undefined);
   products = signal<Product[]>([]);
   categories = signal<Category[]>([]);
-  
   selectedCategoryId = signal<number | null>(null);
 
-  // Esta lista se actualiza sola cuando cambias los productos o la categoría seleccionada
+ 
   filteredProducts = computed(() => {
     const selectedId = this.selectedCategoryId();
     const currentProducts = this.products();
@@ -45,9 +44,9 @@ export class VerRestaurante implements OnInit {
     const idParam = this.route.snapshot.paramMap.get('idRestaurant');
 
     if (idParam) {
-      const id = Number(idParam); // Convertir texto a número
+      const id = Number(idParam); 
   
-      // Si es un número válido, cargamos los datos
+ 
       if (!isNaN(id)) {
         await this.loadData(id);
       } else {
@@ -64,20 +63,19 @@ export class VerRestaurante implements OnInit {
     this.isLoading.set(true);
 
     try {
-      // Cargar Datos del Restaurante (Dueño)
+
       let restaurantUser = this.usersService.users.find(r => r.id === id);
       
-      // Si no está en memoria (ej: entras directo por link o eres invitado), lo pedimos al back
       if (!restaurantUser) {
         restaurantUser = await this.usersService.getUsersbyId(id);
       }
       this.user.set(restaurantUser);
 
-      // Cargar Productos del Restaurante
+
       const prods = await this.restaurantService.getProductbyrestaurant(id);
       this.products.set(prods || []);
 
-      // Cargar Categorías del Restaurante
+
       await this.categoriesService.getCategoriesByRestaurant(id);
       this.categories.set(this.categoriesService.categories());
 

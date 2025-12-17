@@ -38,12 +38,12 @@ export class CategoriaPagina {
       await this.categoryService.getCategoriesByRestaurant(userId);
       const allCategories = this.categoryService.categories();
 
-      // 2. Verificar si estamos editando
+
       const idParam = this.idCategory();
       
       if (idParam && idParam !== 'nuevo') {
         this.isEditing = true;
-        // Buscamos la categoría en la lista cargada
+
         this.categoryOriginal = allCategories.find(c => c.id === Number(idParam));
 
         if (this.categoryOriginal) {
